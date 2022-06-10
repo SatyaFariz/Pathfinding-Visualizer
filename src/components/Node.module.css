@@ -1,0 +1,156 @@
+:root {
+  --node-border: 1px solid #c9e2ff;
+  --wall-color: rgb(12, 53, 71);
+  --wall-border: 1px solid var(--wall-color);
+  --node-padding: 7px;
+}
+
+.nodeWrapper {
+  position: relative;
+}
+
+.Node {
+  border-bottom: var(--node-border);
+  border-right: var(--node-border);
+  padding: var(--node-padding);
+  position: relative;
+}
+
+.NodeWall {
+  border-bottom: var(--wall-border);
+  border-right: var(--wall-border);
+  padding: var(--node-padding);
+  position: relative;
+  animation-name: wallAnimation;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.topBorderNode {
+  border-bottom: var(--node-border);
+  border-right: var(--node-border);
+  border-top: var(--node-border);
+  padding: var(--node-padding);
+  position: relative;
+}
+
+.topBorderNodeWall {
+  border-bottom: var(--wall-border);
+  border-right: var(--wall-border);
+  border-top: var(--wall-border);
+  padding: var(--node-padding);
+  position: relative;
+  animation-name: wallAnimation;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.leftBorderNode {
+  border-bottom: var(--node-border);
+  border-right: var(--node-border);
+  border-left: var(--node-border);
+  padding: var(--node-padding);
+  position: relative;
+}
+
+.leftBorderNodeWall {
+  border-bottom: var(--wall-border);
+  border-right: var(--wall-border);
+  border-left: var(--wall-border);
+  padding: var(--node-padding);
+  position: relative;
+  animation-name: wallAnimation;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.topLeftBorderNode {
+  border-bottom: var(--node-border);
+  border-right: var(--node-border);
+  border-left: var(--node-border);
+  border-top: var(--node-border);
+  padding: var(--node-padding);
+  position: relative;
+}
+
+.topLeftBorderNodeWall {
+  border-bottom: var(--wall-border);
+  border-right: var(--wall-border);
+  border-left: var(--wall-border);
+  border-top: var(--wall-border);
+  padding: var(--node-padding);
+  position: relative;
+  animation-name: wallAnimation;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.startNode {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: green;
+  cursor: pointer;
+}
+
+.targetNode {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: red;
+  cursor: pointer;
+}
+
+.wall {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: var(--wall-color);
+  padding: var(--node-padding);
+  animation-name: wallAnimation;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes wallAnimation {
+  0% {
+    background-color: rgba(0, 0, 187, 0.75);
+    opacity: 0%;
+  }
+
+  100% {
+    background-color: var(--wall-color);
+    opacity: 100%;
+  }
+}
