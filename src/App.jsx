@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import styles from './App.module.css';
 import { createSignal, For } from 'solid-js'
 import Node from './components/Node'
@@ -41,6 +40,7 @@ function App() {
 
     let current = [1, 1]
     const visited = { [current.join('_')]: true }
+    const stack = []
 
     for(let i = 0; i < _grid.length; i = i + 2) {
       for(let j = 0; j < _grid[i].length; j = j + 1) {
@@ -52,15 +52,6 @@ function App() {
       for(let j = 0; j < _grid[i].length; j = j + 2) {
         _wall[`${i}_${j}`] = true
       }
-    }
-
-    const getCellWalls = (i, j) => {
-      return [
-        [i, j + 1],
-        [i, j - 1],
-        [i + 1, j],
-        [i - 1, j]
-      ]
     }
 
     const getWallBetweenCells = (cell1, cell2) => {
@@ -106,9 +97,13 @@ function App() {
       return shuffleArray(neighbors)
     }
 
-    while(current) {
-      const next = getNextNeighborToVisit(...current)
-      if(next) {
+    while(current || stack.length > 0) {
+      
+      let next = getNextNeighborToVisit(...current)
+      if(!next) {
+        next = stack.pop()
+      } else {
+        stack.push(next)
         visited[next.join('_')] = true
         const wall = getWallBetweenCells(current, next)
         delete _wall[`${wall[0]}_${wall[1]}`]
@@ -117,10 +112,11 @@ function App() {
       current = next
     }
 
-    // console.log('neighbors', getUnvisitedCellNeighbors(4, 4))
-
     setWall(_wall)
+    setStartPos([1, 1])
+    setTargetPos([_grid.length - 2, _grid[0].length - 2])
   }
+  
   return (
     <div class={styles.App}>
       <div>
