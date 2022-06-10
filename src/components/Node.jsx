@@ -68,44 +68,34 @@ function Node(props) {
   const isWall = () => {
     return wall()[`${i}_${j}`] === true
   }
-
-  const getClass = () => {
-    if(i === 0 && j === 0) {
-      return isWall() ? styles.topLeftBorderNodeWall : styles.topLeftBorderNode
-    } else if(i === 0) {
-      return isWall() ? styles.topBorderNodeWall : styles.topBorderNode
-    } else if(j === 0) {
-      return isWall() ? styles.leftBorderNodeWall : styles.leftBorderNode
-    } else {
-      return isWall() ? styles.NodeWall : styles.Node
-    }
-  }
   
   return (
-    <div 
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onMouseEnter={onMouseEnter}
-      class={getClass()}
-    >
-      {isStartNode() ?
-      <div class={styles.startNode}>
-      </div> 
-      : null
-      }
+    <td className={styles.cell}>
+      <div 
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onMouseEnter={onMouseEnter}
+        class={styles.node}
+      >
+        {isStartNode() ?
+        <div class={styles.start}>
+        </div> 
+        : null
+        }
 
-      {isTargetNode() ?
-      <div class={styles.targetNode}>
-      </div> 
-      : null
-      }
+        {isTargetNode() ?
+        <div class={styles.target}>
+        </div> 
+        : null
+        }
 
-      {isWall() ?
-      <div class={styles.wall}>
-      </div> 
-      : null
-      }
-    </div>
+        {isWall() ?
+        <div class={styles.wall}>
+        </div> 
+        : null
+        }
+      </div>
+    </td>
   );
 }
 

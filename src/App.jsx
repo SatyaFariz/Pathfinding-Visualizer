@@ -131,31 +131,35 @@ function App() {
       
       <div class={styles.gridContainer}>
         <div>
-          <For each={grid()}>
-            {(row, i) => (
-              <div class={styles.row}>
-                <For each={row}>
-                  {(item, j) => {
-                    return(
-                      <Node
-                        position={[i, j]}
-                        startPos={startPos}
-                        targetPos={targetPos}
-                        isMousedDown={isMousedDown}
-                        setIsMousedDown={setIsMousedDown}
-                        setStartPos={setStartPos}
-                        setTargetPos={setTargetPos}
-                        nodeToMove={nodeToMove}
-                        setNodeToMove={setNodeToMove}
-                        wall={wall}
-                        setWall={setWall}
-                      />
-                    )
-                  }}
-                </For>
-              </div>
-            )}
-          </For>
+          <table className={styles.table}>
+            <tbody>
+            <For each={grid()}>
+              {(row, i) => (
+                <tr class={styles.row}>
+                  <For each={row}>
+                    {(item, j) => {
+                      return(
+                        <Node
+                          position={[i, j]}
+                          startPos={startPos}
+                          targetPos={targetPos}
+                          isMousedDown={isMousedDown}
+                          setIsMousedDown={setIsMousedDown}
+                          setStartPos={setStartPos}
+                          setTargetPos={setTargetPos}
+                          nodeToMove={nodeToMove}
+                          setNodeToMove={setNodeToMove}
+                          wall={wall}
+                          setWall={setWall}
+                        />
+                      )
+                    }}
+                  </For>
+                </tr>
+              )}
+            </For>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
