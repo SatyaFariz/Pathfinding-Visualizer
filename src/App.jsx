@@ -1,5 +1,5 @@
 import styles from './App.module.css';
-import { createSignal, For } from 'solid-js'
+import { createSignal, createEffect, For } from 'solid-js'
 import Node from './components/Node'
 
 const ROW = 33
@@ -17,6 +17,18 @@ function App() {
   const [visitedCell, setVisitedCell] = createSignal({})
   const [path, setPath] = createSignal({})
   const [visualizing, setVisualizing] = createSignal(false)
+
+  createEffect((prev) => {
+    const currentStartPos = startPos()
+    if(
+      Object.keys(path()).length > 0 && 
+      !visualizing() &&
+      currentStartPos.join('_') !== prev.join('_')
+    ) {
+      revisualize()
+    }
+    return currentStartPos
+  })
 
   /*
 
@@ -199,6 +211,29 @@ function App() {
       currentCell = currentCell.prevCell
     }
     return nodesInShortestPathOrder
+  }
+
+  const revisualize = () => {
+    const visitedCellsInOrder = dijkstra()
+    const finishCell = visitedCellsInOrder[visitedCellsInOrder.length - 1]
+    const isTrapped = finishCell.position.join('_') !== targetPos().join('_')
+    const shortestPath = getNodesInShortestPathOrder(finishCell)
+
+    const visited = {}
+    for(const cell of visitedCellsInOrder) {
+      visited[cell.position.join('_')] = true
+    }
+
+    setVisitedCell(visited)
+
+    if(!isTrapped) {
+      const newPath = {}
+      for(const cell of shortestPath) {
+        newPath[cell.position.join('_')] = true
+      }
+
+      setPath(newPath)
+    }
   }
 
   const visualize = () => {

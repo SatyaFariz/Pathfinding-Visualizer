@@ -73,6 +73,7 @@
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-play-state: running;
+  z-index: 999999;
 }
 
 @keyframes wallAnimation {
