@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .table {
   border-collapse: collapse;
   border-spacing: 0px;
@@ -12,4 +8,56 @@
   display: flex;
   justify-content: center;
   margin-top: 40px;
+}
+
+.legends {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  grid-column-gap: 30px;
+}
+
+.startNode {
+  width: 20px;
+  height: 20px;
+  background-color: var(--start-color);
+  margin-right: 10px;
+}
+
+.targetNode {
+  width: 20px;
+  height: 20px;
+  background-color: var(--finish-color);
+  margin-right: 10px;
+}
+
+.visitedNode {
+  width: 20px;
+  height: 20px;
+  background-color: var(--visited-cell-color);
+  margin-right: 10px;
+}
+
+.pathNode {
+  width: 20px;
+  height: 20px;
+  background-color: var(--path-color);
+  margin-right: 10px;
+}
+
+.wallNode {
+  width: 20px;
+  height: 20px;
+  background-color: var(--wall-color);
+  margin-right: 10px;
+}
+
+.legendText {
+  color: var(--wall-color);
+  font-size: 18px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
 }

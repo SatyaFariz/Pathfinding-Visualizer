@@ -7,6 +7,29 @@ const COL = 85
 
 const ROW_MIDDLE = Math.ceil(ROW / 2)
 
+const legends = [
+  {
+    label: 'Start Node',
+    className: 'startNode'
+  },
+  {
+    label: 'Target Node',
+    className: 'targetNode'
+  },
+  {
+    label: 'Visited Node',
+    className: 'visitedNode'
+  },
+  {
+    label: 'Shortest Path Node',
+    className: 'pathNode'
+  },
+  {
+    label: 'Wall Node',
+    className: 'wallNode'
+  }
+]
+
 function App() {
   const [startPos, setStartPos] = createSignal([ROW_MIDDLE, 10])
   const [nodeToMove, setNodeToMove] = createSignal()
@@ -316,6 +339,19 @@ function App() {
         >
           Visualize
         </button>
+      </div>
+
+      <div class={styles.legends}>
+        <For each={legends}>
+          {(item) => {
+            return (
+              <div class={styles.legendItem}>
+                <div class={styles[item.className]}/>
+                <span class={styles.legendText}>{item.label}</span>
+              </div>
+            )
+          }}
+        </For>
       </div>
       
       <div class={styles.gridContainer}>
