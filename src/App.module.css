@@ -44,6 +44,16 @@
   margin-right: 10px;
 }
 
+.textTitle {
+  color: var(--wall-color);
+}
+
+.textTitleContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
 .wallNode {
   width: 20px;
   height: 20px;

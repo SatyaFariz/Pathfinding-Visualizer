@@ -311,6 +311,9 @@ function App() {
   
   return (
     <div class={styles.App}>
+      <div class={styles.textTitleContainer}>
+        <h1 class={styles.textTitle}>Pathfinding Visualizer</h1>
+      </div>
 
       <div class={styles.legendsContainer}>
         <div class={styles.legends}>
