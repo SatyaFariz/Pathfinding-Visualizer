@@ -1,7 +1,7 @@
 import styles from './App.module.css';
 import { createSignal, createEffect, For } from 'solid-js'
 import Node from './components/Node'
-import recursiveBacktracker from './algorithms/recursiveBacktracker'
+import iterativeBacktracker from './algorithms/iterativeBacktracker'
 import dijkstra, { getNodesInShortestPathOrder } from './algorithms/dijkstra'
 
 const ROW = 27
@@ -67,7 +67,7 @@ function App() {
     setPath({})
     setVisitedCell({})
     const _grid = grid()
-    const _wall = recursiveBacktracker(_grid)
+    const _wall = iterativeBacktracker(_grid)
     
     setWall(_wall)
     setStartPos([1, 1])

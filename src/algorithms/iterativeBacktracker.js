@@ -1,6 +1,6 @@
 /*
 
-Recursive Backtracker
+Iterative Backtracker
 
 The depth-first search algorithm of maze generation is frequently implemented using backtracking.
 
@@ -17,7 +17,7 @@ The depth-first search algorithm of maze generation is frequently implemented us
 
 */
 
-const recursiveBacktracker = (grid) => {
+const iterativeBacktracker = (grid) => {
   const wall = {}
 
   let current = [1, 1]
@@ -101,4 +101,4 @@ const initializeWalls = (grid, wall) => {
   }
 }
 
-export default recursiveBacktracker
+export default iterativeBacktracker
