@@ -281,6 +281,10 @@ function App() {
     setPath({})
     setWall({})
   }
+
+  const clearWalls = () => {
+    if(!visualizing()) setWall({})
+  }
   
   return (
     <div class={styles.App}>
@@ -290,6 +294,13 @@ function App() {
           disabled={visualizing()}
         >
           Reset
+        </button>
+
+        <button 
+          onClick={clearWalls}
+          disabled={visualizing()}
+        >
+          Clear Walls
         </button>
 
         <button 

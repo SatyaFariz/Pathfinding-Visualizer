@@ -4,7 +4,9 @@
   --wall-border: 1px solid var(--wall-color);
   --node-padding: 7px;
   --path-color: #ffff6a;
-  --visited-cell-color: #00bedabf;
+  --visited-cell-color: #00beda;
+  --start-color: #b143ff;
+  --finish-color: #da1c00;
 }
 
 .cell {
@@ -43,8 +45,9 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: green;
+  background-color: var(--start-color);
   cursor: pointer;
+  z-index: 9999;
 }
 
 .target {
@@ -53,8 +56,9 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: red;
+  background-color: var(--finish-color);
   cursor: pointer;
+  z-index: 99999;
 }
 
 .wall {
