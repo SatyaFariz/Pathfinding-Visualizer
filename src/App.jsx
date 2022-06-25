@@ -2,7 +2,7 @@ import styles from './App.module.css';
 import { createSignal, createEffect, For } from 'solid-js'
 import Node from './components/Node'
 
-const ROW = 33
+const ROW = 27
 const COL = 85
 
 const ROW_MIDDLE = Math.ceil(ROW / 2)
