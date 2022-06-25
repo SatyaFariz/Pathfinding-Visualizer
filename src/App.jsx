@@ -299,7 +299,7 @@ function App() {
     }
   }
 
-  const reset = () => {
+  const clearBoard = () => {
     setVisitedCell({})
     setPath({})
     setWall({})
@@ -340,10 +340,10 @@ function App() {
         <div class={styles.buttonsGrid}>
           <button 
             class={styles.button}
-            onClick={reset}
+            onClick={clearBoard}
             disabled={visualizing()}
           >
-            Reset
+            Clear Board
           </button>
 
           <button 
