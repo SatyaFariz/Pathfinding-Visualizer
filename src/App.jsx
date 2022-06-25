@@ -38,6 +38,8 @@ function App() {
   */
 
   const generateMaze = () => {
+    setPath({})
+    setVisitedCell({})
     const _wall = {}
     const _grid = grid()
 
