@@ -29,7 +29,6 @@
   top: 0;
   bottom: 0;
   z-index: 99;
-  padding: var(--node-padding);
 }
 
 .node {

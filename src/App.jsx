@@ -199,21 +199,21 @@ function App() {
   }
 
   const visualize = () => {
-    const order = dijkstra()
-    const shortestPath = getNodesInShortestPathOrder(order[order.length - 1])
-    console.log(shortestPath)
+    const visitedCellsInOrder = dijkstra()
+    const shortestPath = getNodesInShortestPathOrder(visitedCellsInOrder[visitedCellsInOrder.length - 1])
     
-    const visitedCell = {}
-    for(const item of order) {
-      visitedCell[item.position.join('_')] = true
+    for(let i = 0; i < visitedCellsInOrder.length; i++) {
+      setTimeout(() => {
+        if(i === visitedCellsInOrder.length - 1) {
+          for(let i = 0; i < shortestPath.length; i++) {
+            setTimeout(() => {
+              setPath(prev => ({ ...prev, [shortestPath[i].position.join('_')]: true }))
+            }, 10 * i)
+          }
+        }
+        setVisitedCell(prev => ({ ...prev, [visitedCellsInOrder[i].position.join('_')]: true }))
+      }, 10 * i)
     }
-
-    const path = {}
-    for(const item of shortestPath) {
-      path[item.position.join('_')] = true
-    }
-    setVisitedCell(visitedCell)
-    setPath(path)
   }
   
   return (
