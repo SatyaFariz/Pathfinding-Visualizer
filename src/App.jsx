@@ -15,6 +15,7 @@ function App() {
   const [grid, setGrid] = createSignal(new Array(ROW).fill(new Array(COL).fill(0)))
   const [wall, setWall] = createSignal({})
   const [visitedCell, setVisitedCell] = createSignal({})
+  const [path, setPath] = createSignal({})
 
   /*
 
@@ -185,15 +186,34 @@ function App() {
     }
   }
 
+  // Backtracks from the finishNode to find the shortest path.
+  // Only works when called *after* the dijkstra method above.
+  const getNodesInShortestPathOrder = (finishCell) => {
+    const nodesInShortestPathOrder = []
+    let currentCell = finishCell
+    while (currentCell !== null) {
+      nodesInShortestPathOrder.unshift(currentCell)
+      currentCell = currentCell.prevCell
+    }
+    return nodesInShortestPathOrder
+  }
+
   const visualize = () => {
     const order = dijkstra()
-    console.log(order)
+    const shortestPath = getNodesInShortestPathOrder(order[order.length - 1])
+    console.log(shortestPath)
     
     const visitedCell = {}
     for(const item of order) {
       visitedCell[item.position.join('_')] = true
     }
+
+    const path = {}
+    for(const item of shortestPath) {
+      path[item.position.join('_')] = true
+    }
     setVisitedCell(visitedCell)
+    setPath(path)
   }
   
   return (
@@ -235,6 +255,7 @@ function App() {
                           wall={wall}
                           setWall={setWall}
                           visitedCell={visitedCell}
+                          path={path}
                         />
                       )
                     }}

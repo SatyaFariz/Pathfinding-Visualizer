@@ -3,6 +3,8 @@
   --wall-color: rgb(12, 53, 71);
   --wall-border: 1px solid var(--wall-color);
   --node-padding: 7px;
+  --path-color: rgb(255, 254, 106);
+  --visited-cell-color: rgba(0, 190, 218, 0.75)
 }
 
 .cell {
@@ -11,12 +13,23 @@
 }
 
 .visitedCell {
-  background-color: rgba(0, 190, 218, 0.75);
+  background-color: var(--visited-cell-color);
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
+}
+
+.path {
+  background-color: var(--path-color);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 99;
+  padding: var(--node-padding);
 }
 
 .node {

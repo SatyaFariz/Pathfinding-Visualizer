@@ -15,7 +15,8 @@ function Node(props) {
     setNodeToMove,
     wall,
     setWall,
-    visitedCell
+    visitedCell,
+    path
   } = props
   const [row, col] = position
   const i = row()
@@ -73,6 +74,10 @@ function Node(props) {
   const isVisited = () => {
     return visitedCell()[`${i}_${j}`] === true
   }
+
+  const isPath = () => {
+    return path()[`${i}_${j}`] === true
+  }
   
   return (
     <td className={styles.cell}>
@@ -99,9 +104,15 @@ function Node(props) {
         </div> 
         : null
         }
-
+ 
         {isVisited() ?
         <div class={styles.visitedCell}>
+        </div> 
+        : null
+        }
+
+        {isPath() ?
+        <div class={styles.path}>
         </div> 
         : null
         }
