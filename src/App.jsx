@@ -204,18 +204,24 @@ function App() {
     setVisitedCell({})
     setVisualizing(true)
     const visitedCellsInOrder = dijkstra()
-    const shortestPath = getNodesInShortestPathOrder(visitedCellsInOrder[visitedCellsInOrder.length - 1])
+    const finishCell = visitedCellsInOrder[visitedCellsInOrder.length - 1]
+    const isTrapped = finishCell.position.join('_') !== targetPos().join('_')
+    const shortestPath = getNodesInShortestPathOrder(finishCell)
     
     for(let i = 0; i < visitedCellsInOrder.length; i++) {
       setTimeout(() => {
         if(i === visitedCellsInOrder.length - 1) {
-          for(let i = 0; i < shortestPath.length; i++) {
-            setTimeout(() => {
-              setPath(prev => ({ ...prev, [shortestPath[i].position.join('_')]: true }))
-              if(i === shortestPath.length - 1) {
-                setVisualizing(false)
-              }
-            }, 10 * i)
+          if(!isTrapped) {
+            for(let i = 0; i < shortestPath.length; i++) {
+              setTimeout(() => {
+                setPath(prev => ({ ...prev, [shortestPath[i].position.join('_')]: true }))
+                if(i === shortestPath.length - 1) {
+                  setVisualizing(false)
+                }
+              }, 10 * i)
+            }
+          } else {
+            setVisualizing(false)
           }
         }
         setVisitedCell(prev => ({ ...prev, [visitedCellsInOrder[i].position.join('_')]: true }))
