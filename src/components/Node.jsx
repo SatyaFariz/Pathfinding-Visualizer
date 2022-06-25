@@ -1,5 +1,4 @@
 
-import { createSignal, For } from 'solid-js'
 import styles from './Node.module.css'
 
 function Node(props) {
