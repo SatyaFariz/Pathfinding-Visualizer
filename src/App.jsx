@@ -16,6 +16,7 @@ function App() {
   const [wall, setWall] = createSignal({})
   const [visitedCell, setVisitedCell] = createSignal({})
   const [path, setPath] = createSignal({})
+  const [visualizing, setVisualizing] = createSignal(false)
 
   /*
 
@@ -199,6 +200,9 @@ function App() {
   }
 
   const visualize = () => {
+    setPath({})
+    setVisitedCell({})
+    setVisualizing(true)
     const visitedCellsInOrder = dijkstra()
     const shortestPath = getNodesInShortestPathOrder(visitedCellsInOrder[visitedCellsInOrder.length - 1])
     
@@ -208,6 +212,9 @@ function App() {
           for(let i = 0; i < shortestPath.length; i++) {
             setTimeout(() => {
               setPath(prev => ({ ...prev, [shortestPath[i].position.join('_')]: true }))
+              if(i === shortestPath.length - 1) {
+                setVisualizing(false)
+              }
             }, 10 * i)
           }
         }
@@ -219,15 +226,24 @@ function App() {
   return (
     <div class={styles.App}>
       <div>
-        <button onClick={() => setWall({})}>
+        <button 
+          onClick={() => setWall({})}
+          disabled={visualizing()}
+        >
           Reset
         </button>
 
-        <button onClick={generateMaze}>
+        <button 
+          onClick={generateMaze}
+          disabled={visualizing()}
+        >
           Maze
         </button>
 
-        <button onClick={visualize}>
+        <button 
+          onClick={visualize}
+          disabled={visualizing()}
+        >
           Visualize
         </button>
       </div>
