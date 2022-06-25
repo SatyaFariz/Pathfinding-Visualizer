@@ -341,17 +341,25 @@ function App() {
         </button>
       </div>
 
-      <div class={styles.legends}>
-        <For each={legends}>
-          {(item) => {
-            return (
-              <div class={styles.legendItem}>
-                <div class={styles[item.className]}/>
-                <span class={styles.legendText}>{item.label}</span>
-              </div>
-            )
-          }}
-        </For>
+      <div class={styles.legendsContainer}>
+        <div class={styles.legends}>
+          <For each={legends}>
+            {(item) => {
+              return (
+                <div class={styles.legendItem}>
+                  <div class={styles[item.className]}/>
+                  <span class={styles.legendText}>{item.label}</span>
+                </div>
+              )
+            }}
+          </For>
+        </div>
+      </div>
+
+      <div class={styles.textContainer}>
+        <p class={styles.text}>
+          You can create walls by clicking on any nodes. Dijkstra's Algorithm <b>guarantees</b> the shortest path.
+        </p>
       </div>
       
       <div class={styles.gridContainer}>

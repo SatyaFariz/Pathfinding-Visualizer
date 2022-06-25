@@ -7,7 +7,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 40px;
 }
 
 .legends {
@@ -57,7 +56,22 @@
   font-size: 18px;
 }
 
+.text {
+  color: var(--wall-color);
+}
+
 .legendItem {
   display: flex;
   align-items: center;
+}
+
+.legendsContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.textContainer {
+  display: flex;
+  justify-content: center;
 }
