@@ -24,64 +24,11 @@ const recursiveBacktracker = (grid) => {
   const visited = { [current.join('_')]: true }
   const stack = []
 
-  for(let i = 0; i < grid.length; i = i + 2) {
-    for(let j = 0; j < grid[i].length; j = j + 1) {
-      wall[`${i}_${j}`] = true
-    }
-  }
-
-  for(let i = 1; i < grid.length; i = i + 2) {
-    for(let j = 0; j < grid[i].length; j = j + 2) {
-      wall[`${i}_${j}`] = true
-    }
-  }
-
-  const getWallBetweenCells = (cell1, cell2) => {
-    if(cell1[0] === cell2[0])
-      return [cell1[0], (cell1[1] + cell2[1]) / 2]
-    if(cell1[1] === cell2[1])
-      return [(cell1[0] + cell2[0]) / 2, cell1[1]]
-  }
-
-  const getUnvisitedCellNeighbors = (i, j) => {
-    const neighbors = []
-    if(i >= 2 && !visited[`${i - 2}_${j}`]) {
-      neighbors.push([i - 2, j])
-    }
-    if(i < grid.length - 2 && !visited[`${i + 2}_${j}`]) {
-      neighbors.push([i + 2, j])
-    }
-    if(j >= 2 && !visited[`${i}_${j - 2}`]) {
-      neighbors.push([i, j - 2])
-    }
-    if(j < grid[0].length - 2 && !visited[`${i}_${j + 2}`]) {
-      neighbors.push([i, j + 2])
-    }
-    return neighbors
-  }
-
-  const shuffleArray = (array) => {
-    if (array.length == 0) {
-      return;
-    }
-    for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1))
-      var temp = array[i]
-      array[i] = array[j]
-      array[j] = temp
-    }
-  
-    return array[0]
-  }
-
-  const getNextNeighborToVisit = (i, j) => {
-    const neighbors = getUnvisitedCellNeighbors(i, j)
-    return shuffleArray(neighbors)
-  }
+  initializeWalls(grid, wall)
 
   while(current || stack.length > 0) {
     
-    let next = getNextNeighborToVisit(...current)
+    let next = getNextNeighborToVisit(...current, grid, visited)
     if(!next) {
       next = stack.pop()
     } else {
@@ -95,6 +42,63 @@ const recursiveBacktracker = (grid) => {
   }
 
   return wall
+}
+
+const getUnvisitedCellNeighbors = (i, j, grid, visited) => {
+  const neighbors = []
+  if(i >= 2 && !visited[`${i - 2}_${j}`]) {
+    neighbors.push([i - 2, j])
+  }
+  if(i < grid.length - 2 && !visited[`${i + 2}_${j}`]) {
+    neighbors.push([i + 2, j])
+  }
+  if(j >= 2 && !visited[`${i}_${j - 2}`]) {
+    neighbors.push([i, j - 2])
+  }
+  if(j < grid[0].length - 2 && !visited[`${i}_${j + 2}`]) {
+    neighbors.push([i, j + 2])
+  }
+  return neighbors
+}
+
+const getNextNeighborToVisit = (i, j, grid, visited) => {
+  const neighbors = getUnvisitedCellNeighbors(i, j, grid, visited)
+  return shuffleArray(neighbors)
+}
+
+const getWallBetweenCells = (cell1, cell2) => {
+  if(cell1[0] === cell2[0])
+    return [cell1[0], (cell1[1] + cell2[1]) / 2]
+  if(cell1[1] === cell2[1])
+    return [(cell1[0] + cell2[0]) / 2, cell1[1]]
+}
+
+const shuffleArray = (array) => {
+  if (array.length == 0) {
+    return;
+  }
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1))
+    var temp = array[i]
+    array[i] = array[j]
+    array[j] = temp
+  }
+
+  return array[0]
+}
+
+const initializeWalls = (grid, wall) => {
+  for(let i = 0; i < grid.length; i = i + 2) {
+    for(let j = 0; j < grid[i].length; j = j + 1) {
+      wall[`${i}_${j}`] = true
+    }
+  }
+
+  for(let i = 1; i < grid.length; i = i + 2) {
+    for(let j = 0; j < grid[i].length; j = j + 2) {
+      wall[`${i}_${j}`] = true
+    }
+  }
 }
 
 export default recursiveBacktracker
