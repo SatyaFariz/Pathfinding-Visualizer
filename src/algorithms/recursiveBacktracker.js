@@ -17,22 +17,22 @@ The depth-first search algorithm of maze generation is frequently implemented us
 
 */
 
-const recursiveBacktracker = (_grid) => {
-  const _wall = {}
+const recursiveBacktracker = (grid) => {
+  const wall = {}
 
   let current = [1, 1]
   const visited = { [current.join('_')]: true }
   const stack = []
 
-  for(let i = 0; i < _grid.length; i = i + 2) {
-    for(let j = 0; j < _grid[i].length; j = j + 1) {
-      _wall[`${i}_${j}`] = true
+  for(let i = 0; i < grid.length; i = i + 2) {
+    for(let j = 0; j < grid[i].length; j = j + 1) {
+      wall[`${i}_${j}`] = true
     }
   }
 
-  for(let i = 1; i < _grid.length; i = i + 2) {
-    for(let j = 0; j < _grid[i].length; j = j + 2) {
-      _wall[`${i}_${j}`] = true
+  for(let i = 1; i < grid.length; i = i + 2) {
+    for(let j = 0; j < grid[i].length; j = j + 2) {
+      wall[`${i}_${j}`] = true
     }
   }
 
@@ -48,13 +48,13 @@ const recursiveBacktracker = (_grid) => {
     if(i >= 2 && !visited[`${i - 2}_${j}`]) {
       neighbors.push([i - 2, j])
     }
-    if(i < _grid.length - 2 && !visited[`${i + 2}_${j}`]) {
+    if(i < grid.length - 2 && !visited[`${i + 2}_${j}`]) {
       neighbors.push([i + 2, j])
     }
     if(j >= 2 && !visited[`${i}_${j - 2}`]) {
       neighbors.push([i, j - 2])
     }
-    if(j < _grid[0].length - 2 && !visited[`${i}_${j + 2}`]) {
+    if(j < grid[0].length - 2 && !visited[`${i}_${j + 2}`]) {
       neighbors.push([i, j + 2])
     }
     return neighbors
@@ -87,14 +87,14 @@ const recursiveBacktracker = (_grid) => {
     } else {
       stack.push(next)
       visited[next.join('_')] = true
-      const wall = getWallBetweenCells(current, next)
-      delete _wall[`${wall[0]}_${wall[1]}`]
+      const wallInBetween = getWallBetweenCells(current, next)
+      delete wall[`${wallInBetween[0]}_${wallInBetween[1]}`]
     }
 
     current = next
   }
 
-  return _wall
+  return wall
 }
 
 export default recursiveBacktracker
