@@ -1,14 +1,3 @@
-:root {
-  --node-border: 1px solid #c9e2ff;
-  --wall-color: #0c3547;
-  --wall-border: 1px solid var(--wall-color);
-  --node-padding: 7px;
-  --path-color: #ffff6a;
-  --visited-cell-color: #00beda;
-  --start-color: #b143ff;
-  --finish-color: #da1c00;
-}
-
 .cell {
   border: var(--node-border);
   padding: 0;
