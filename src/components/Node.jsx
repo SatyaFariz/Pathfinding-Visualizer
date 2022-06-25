@@ -16,23 +16,26 @@ function Node(props) {
     wall,
     setWall,
     visitedCell,
-    path
+    path,
+    visualizing
   } = props
   const [row, col] = position
   const i = row()
   const j = col()
 
   const onMouseDown = () => {
-    if(isStartNode()) {
-      setIsMousedDown(true)
-      setNodeToMove('start_node')
-    } else if(isTargetNode()) {
-      setIsMousedDown(true)
-      setNodeToMove('target_node')
-    } else {
-      setIsMousedDown(true)
-      setNodeToMove('wall')
-      buildWall()
+    if(!visualizing()) {
+      if(isStartNode()) {
+        setIsMousedDown(true)
+        setNodeToMove('start_node')
+      } else if(isTargetNode()) {
+        setIsMousedDown(true)
+        setNodeToMove('target_node')
+      } else {
+        setIsMousedDown(true)
+        setNodeToMove('wall')
+        buildWall()
+      }
     }
   }
 
@@ -46,7 +49,7 @@ function Node(props) {
   }
 
   const onMouseEnter = () => {
-    if(isMousedDown()) {
+    if(isMousedDown() && !visualizing()) {
       if(nodeToMove() === 'start_node' && !isTargetNode() && !isWall())
         setStartPos([i, j])
       else if(nodeToMove() === 'target_node' && !isStartNode() && !isWall())

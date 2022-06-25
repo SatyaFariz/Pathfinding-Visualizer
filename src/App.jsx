@@ -331,6 +331,7 @@ function App() {
                           setWall={setWall}
                           visitedCell={visitedCell}
                           path={path}
+                          visualizing={visualizing}
                         />
                       )
                     }}
