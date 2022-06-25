@@ -222,12 +222,18 @@ function App() {
       }, 10 * i)
     }
   }
+
+  const reset = () => {
+    setVisitedCell({})
+    setPath({})
+    setWall({})
+  }
   
   return (
     <div class={styles.App}>
       <div>
         <button 
-          onClick={() => setWall({})}
+          onClick={reset}
           disabled={visualizing()}
         >
           Reset
