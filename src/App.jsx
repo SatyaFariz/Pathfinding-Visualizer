@@ -311,35 +311,6 @@ function App() {
   
   return (
     <div class={styles.App}>
-      <div>
-        <button 
-          onClick={reset}
-          disabled={visualizing()}
-        >
-          Reset
-        </button>
-
-        <button 
-          onClick={clearWalls}
-          disabled={visualizing()}
-        >
-          Clear Walls
-        </button>
-
-        <button 
-          onClick={generateMaze}
-          disabled={visualizing()}
-        >
-          Maze
-        </button>
-
-        <button 
-          onClick={visualize}
-          disabled={visualizing()}
-        >
-          Visualize
-        </button>
-      </div>
 
       <div class={styles.legendsContainer}>
         <div class={styles.legends}>
@@ -360,6 +331,42 @@ function App() {
         <p class={styles.text}>
           You can create walls by clicking on any nodes. Dijkstra's Algorithm <b>guarantees</b> the shortest path.
         </p>
+      </div>
+
+      <div class={styles.buttonsContainer}>
+        <div class={styles.buttonsGrid}>
+          <button 
+            class={styles.button}
+            onClick={reset}
+            disabled={visualizing()}
+          >
+            Reset
+          </button>
+
+          <button 
+            class={styles.button}
+            onClick={clearWalls}
+            disabled={visualizing()}
+          >
+            Clear Walls
+          </button>
+
+          <button 
+            class={styles.button}
+            onClick={generateMaze}
+            disabled={visualizing()}
+          >
+            Maze
+          </button>
+
+          <button 
+            class={styles.button}
+            onClick={visualize}
+            disabled={visualizing()}
+          >
+            Visualize
+          </button>
+        </div>
       </div>
       
       <div class={styles.gridContainer}>

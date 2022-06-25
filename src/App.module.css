@@ -75,3 +75,38 @@
   display: flex;
   justify-content: center;
 }
+
+.buttonsGrid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  grid-column-gap: 5px;
+}
+
+.buttonsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.button {
+  background-color: #0075da;
+  border: none;
+  color: white;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: #0067c1;
+}
+
+.button:disabled {
+  cursor: default;
+  background-color: #289bff;
+}
