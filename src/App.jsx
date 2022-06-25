@@ -12,7 +12,7 @@ function App() {
   const [nodeToMove, setNodeToMove] = createSignal()
   const [targetPos, setTargetPos] = createSignal([ROW_MIDDLE, COL - 11])
   const [isMousedDown, setIsMousedDown] = createSignal(false)
-  const [grid, setGrid] = createSignal(new Array(ROW).fill(new Array(COL).fill(0)))
+  const [grid] = createSignal(new Array(ROW).fill(new Array(COL).fill(0)))
   const [wall, setWall] = createSignal({})
   const [visitedCell, setVisitedCell] = createSignal({})
   const [path, setPath] = createSignal({})
@@ -20,14 +20,22 @@ function App() {
 
   createEffect((prev) => {
     const currentStartPos = startPos()
-    if(
-      Object.keys(path()).length > 0 && 
-      !visualizing() &&
-      currentStartPos.join('_') !== prev.join('_')
-    ) {
-      revisualize()
+    const currentTargetPos = targetPos()
+    const currentWall = wall()
+    if(Object.keys(visitedCell()).length > 0 && !visualizing()) {
+      if(
+        currentStartPos.join('_') !== prev.startPos.join('_') ||
+        currentTargetPos.join('_') !== prev.targetPos.join('_') ||
+        JSON.stringify(currentWall) !== JSON.stringify(prev.wall)
+      ) {
+        revisualize()
+      }
     }
-    return currentStartPos
+    return {
+      startPos: currentStartPos,
+      targetPos: currentTargetPos,
+      wall: currentWall
+    }
   })
 
   /*
@@ -233,6 +241,8 @@ function App() {
       }
 
       setPath(newPath)
+    } else {
+      setPath({})
     }
   }
 
