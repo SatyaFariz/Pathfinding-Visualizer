@@ -14,6 +14,7 @@ function App() {
   const [isMousedDown, setIsMousedDown] = createSignal(false)
   const [grid, setGrid] = createSignal(new Array(ROW).fill(new Array(COL).fill(0)))
   const [wall, setWall] = createSignal({})
+  const [visitedCell, setVisitedCell] = createSignal({})
 
   /*
 
@@ -187,6 +188,12 @@ function App() {
   const visualize = () => {
     const order = dijkstra()
     console.log(order)
+    
+    const visitedCell = {}
+    for(const item of order) {
+      visitedCell[item.position.join('_')] = true
+    }
+    setVisitedCell(visitedCell)
   }
   
   return (
@@ -227,6 +234,7 @@ function App() {
                           setNodeToMove={setNodeToMove}
                           wall={wall}
                           setWall={setWall}
+                          visitedCell={visitedCell}
                         />
                       )
                     }}
