@@ -210,7 +210,7 @@ function App() {
               {(row, i) => (
                 <tr class={styles.row}>
                   <For each={row}>
-                    {(item, j) => {
+                    {(_, j) => {
                       return(
                         <Node
                           position={[i, j]}
