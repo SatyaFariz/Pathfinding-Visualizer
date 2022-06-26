@@ -80,3 +80,11 @@
     opacity: 100%;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .node {
+    width: 28px;
+    height: 28px;
+  }
+}

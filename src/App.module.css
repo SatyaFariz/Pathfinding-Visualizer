@@ -126,9 +126,12 @@
   .table {
     transform: rotate(90deg) translateX(50%) translateY(-50%);
     transform-origin: top;
+    margin: 10px;
   }
 
-  body {
-    width: fit-content;
+  .app {
+    width: 1000px;
+    overflow-x: clip;
+    padding-top: 15px;
   }
 }
