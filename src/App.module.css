@@ -120,3 +120,19 @@
   cursor: default;
   background-color: #289bff;
 }
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .tableContainer {
+    transform: rotate(90deg) translateX(50%) translateY(-50%);
+    transform-origin: top;
+    margin: 10px;
+    padding-right: 40px;
+  }
+
+  .app {
+    width: 1000px;
+    overflow-x: clip;
+    padding-top: 15px;
+  }
+}
