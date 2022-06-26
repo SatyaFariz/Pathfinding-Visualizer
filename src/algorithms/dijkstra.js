@@ -73,5 +73,96 @@ const getNodesInShortestPathOrder = (finishCell) => {
   return nodesInShortestPathOrder
 }
 
+// Parent index: (index - 1) / 2
+// Left child index: 2 * index + 1
+// Right child index: 2 * index + 2
+class MinHeap {
+  constructor() {
+    this.storage = []
+    this.size = 0
+  }
+
+  getParentIndex(index) {
+    return Math.floor((index - 1) / 2)
+  }
+
+  getLeftChildIndex(index) {
+    return 2 * index + 1
+  }
+
+  getRightChildIndex(index) {
+    return 2 * index + 2
+  }
+
+  hasParent(index) {
+    return this.getParentIndex(index) >= 0
+  }
+
+  hasLeftChild(index) {
+    return this.getLeftChildIndex(index) < this.size
+  }
+
+  hasRightChild(index) {
+    return this.getRightChildIndex(index) < this.size
+  }
+
+  parent(index) {
+    return this.storage[this.getParentIndex(index)]
+  }
+
+  leftChild(index) {
+    return this.storage[this.getLeftChildIndex(index)]
+  }
+
+  rightChild(index) {
+    return this.storage[this.getRightChildIndex(index)]
+  }
+
+  swap(index1, index2) {
+    const temp = this.storage[index1]
+    this.storage[index1] = this.storage[index2]
+    this.storage[index2] = temp
+  }
+
+  insert(data) {
+    this.storage[this.size] = data
+    this.size++
+    this.heapifyUp()
+  }
+
+  heapifyUp() {
+    let index = this.size - 1
+    while(this.hasParent(index) && this.parent(index) > this.storage[index]) {
+      this.swap(this.getParentIndex(index), index)
+      index = this.getParentIndex(index)
+    }
+  }
+
+  poll() {
+    if(this.size === 0) throw new Error('Empty Heap')
+    const data = this.storage[0]
+    this.storage[0] = this.storage[this.size - 1]
+    this.size--
+    this.heapifyDown()
+    return data
+  }
+
+  heapifyDown() {
+    let index = 0
+    while(this.hasLeftChild(index)) {
+      let smallerChildIndex = this.getLeftChildIndex(index)
+      if(this.hasRightChild(index) && this.rightChild(index) < this.leftChild(index)) {
+        smallerChildIndex = this.getRightChildIndex(index)
+      }
+      if(this.storage[index] < this.storage[smallerChildIndex]) {
+        break
+      } else {
+        this.swap(index, smallerChildIndex)
+      }
+      index = smallerChildIndex
+    }
+  }
+}
+
 export default dijkstra
 export { getNodesInShortestPathOrder }
