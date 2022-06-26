@@ -1,7 +1,7 @@
 import styles from './App.module.css';
 import { createSignal, createEffect, For } from 'solid-js'
 import Node from './components/Node'
-import iterativeBacktracker from './algorithms/mazeGenerator'
+import mazeGenerator from './algorithms/mazeGenerator'
 import dijkstra, { getNodesInShortestPathOrder } from './algorithms/dijkstra'
 
 const ROW = 27
@@ -67,7 +67,7 @@ function App() {
     setPath({})
     setVisitedCell({})
     const _grid = grid()
-    const _wall = iterativeBacktracker(_grid)
+    const _wall = mazeGenerator(_grid)
     
     setWall(_wall)
     setStartPos([1, 1])
