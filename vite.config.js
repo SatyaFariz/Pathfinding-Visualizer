@@ -9,8 +9,7 @@ export default defineConfig(({ mode }) => {
       target: 'esnext',
       polyfillDynamicImport: false,
     },
-    define: {
-      __APP_ENV__: env.NODE_ENV
-    }
+    base: '/Pathfinding-Visualizer/',
+    mode: env.NODE_ENV
   }
 });
