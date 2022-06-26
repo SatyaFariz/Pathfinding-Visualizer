@@ -1,7 +1,7 @@
 import styles from './App.module.css';
 import { createSignal, createEffect, For } from 'solid-js'
 import Node from './components/Node'
-import iterativeBacktracker from './algorithms/iterativeBacktracker'
+import iterativeBacktracker from './algorithms/mazeGenerator'
 import dijkstra, { getNodesInShortestPathOrder } from './algorithms/dijkstra'
 
 const ROW = 27
