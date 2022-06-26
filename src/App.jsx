@@ -203,7 +203,7 @@ function App() {
       </div>
       
       <div class={styles.gridContainer}>
-        <div>
+        <div class={styles.tableContainer}>
           <table className={styles.table}>
             <tbody>
             <For each={grid()}>
