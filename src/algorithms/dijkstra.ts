@@ -88,7 +88,7 @@ const getNodesInShortestPathOrder = (finishCell: any) => {
 class PriorityQueue {
   cellRef: any
   storage: any
-  size: any
+  size: number
   constructor(cellRef: any) {
     this.cellRef = cellRef
     this.storage = []
@@ -99,43 +99,43 @@ class PriorityQueue {
     return this.size
   }
 
-  getParentIndex(index: any) {
+  getParentIndex(index: number) {
     return Math.floor((index - 1) / 2)
   }
 
-  getLeftChildIndex(index: any) {
+  getLeftChildIndex(index: number) {
     return 2 * index + 1
   }
 
-  getRightChildIndex(index: any) {
+  getRightChildIndex(index: number) {
     return 2 * index + 2
   }
 
-  hasParent(index: any) {
+  hasParent(index: number) {
     return this.getParentIndex(index) >= 0
   }
 
-  hasLeftChild(index: any) {
+  hasLeftChild(index: number) {
     return this.getLeftChildIndex(index) < this.size
   }
 
-  hasRightChild(index: any) {
+  hasRightChild(index: number) {
     return this.getRightChildIndex(index) < this.size
   }
 
-  parent(index: any) {
+  parent(index: number) {
     return this.storage[this.getParentIndex(index)]
   }
 
-  leftChild(index: any) {
+  leftChild(index: number) {
     return this.storage[this.getLeftChildIndex(index)]
   }
 
-  rightChild(index: any) {
+  rightChild(index: number) {
     return this.storage[this.getRightChildIndex(index)]
   }
 
-  swap(index1: any, index2: any) {
+  swap(index1: number, index2: number) {
     const temp = this.storage[index1]
     this.storage[index1] = this.storage[index2]
     this.storage[index2] = temp

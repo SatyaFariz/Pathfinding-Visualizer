@@ -44,7 +44,7 @@ const mazeGenerator = (grid: any) => {
   return wall
 }
 
-const getUnvisitedCellNeighbors = (i: any, j: any, grid: any, visited: any) => {
+const getUnvisitedCellNeighbors = (i: number, j: number, grid: any, visited: any) => {
   const neighbors = []
   if(i >= 2 && !visited[`${i - 2}_${j}`]) {
     neighbors.push([i - 2, j])
@@ -61,7 +61,7 @@ const getUnvisitedCellNeighbors = (i: any, j: any, grid: any, visited: any) => {
   return neighbors
 }
 
-const getNextNeighborToVisit = (i: any, j: any, grid: any, visited: any) => {
+const getNextNeighborToVisit = (i: number, j: number, grid: any, visited: any) => {
   const neighbors = getUnvisitedCellNeighbors(i, j, grid, visited)
   return shuffleArray(neighbors)
 }
