@@ -1,7 +1,7 @@
 
 import styles from './Node.module.css'
 
-function Node(props) {
+function Node(props: any) {
   const {
     isMousedDown,
     setStartPos,
@@ -82,7 +82,7 @@ function Node(props) {
   }
   
   return (
-    <td className={styles.cell}>
+    <td class={styles.cell}>
       <div 
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}

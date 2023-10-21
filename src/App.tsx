@@ -43,7 +43,7 @@ function App() {
   const [path, setPath] = createSignal({})
   const [visualizing, setVisualizing] = createSignal(false)
 
-  createEffect((prev) => {
+  createEffect((prev: any) => {
     const currentStartPos = startPos()
     const currentTargetPos = targetPos()
     const currentWall = wall()
@@ -80,7 +80,7 @@ function App() {
     const isTrapped = finishCell.position.join('_') !== targetPos().join('_')
     const shortestPath = getNodesInShortestPathOrder(finishCell)
 
-    const visited = {}
+    const visited: any = {}
     for(const cell of visitedCellsInOrder) {
       visited[cell.position.join('_')] = true
     }
@@ -88,7 +88,7 @@ function App() {
     setVisitedCell(visited)
 
     if(!isTrapped) {
-      const newPath = {}
+      const newPath: any = {}
       for(const cell of shortestPath) {
         newPath[cell.position.join('_')] = true
       }
@@ -204,7 +204,7 @@ function App() {
       
       <div class={styles.gridContainer}>
         <div class={styles.tableContainer}>
-          <table className={styles.table}>
+          <table class={styles.table}>
             <tbody>
             <For each={grid()}>
               {(row, i) => (

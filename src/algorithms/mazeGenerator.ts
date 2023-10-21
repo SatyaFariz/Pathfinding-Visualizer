@@ -17,10 +17,10 @@ The depth-first search algorithm of maze generation is frequently implemented us
 
 */
 
-const mazeGenerator = (grid) => {
-  const wall = {}
+const mazeGenerator = (grid: any) => {
+  const wall: any = {}
 
-  let current = [1, 1]
+  let current: number[] = [1, 1]
   const visited = { [current.join('_')]: true }
   const stack = []
 
@@ -28,14 +28,14 @@ const mazeGenerator = (grid) => {
 
   while(current || stack.length > 0) {
     
-    let next = getNextNeighborToVisit(...current, grid, visited)
+    let next = getNextNeighborToVisit(current[0], current[1], grid, visited)
     if(!next) {
       next = stack.pop()
     } else {
       stack.push(next)
       visited[next.join('_')] = true
-      const wallInBetween = getWallBetweenCells(current, next)
-      delete wall[`${wallInBetween[0]}_${wallInBetween[1]}`]
+      const wallInBetween: any[] | undefined = getWallBetweenCells(current, next)
+      delete wall[`${(wallInBetween as any)[0]}_${(wallInBetween as any)[1]}`]
     }
 
     current = next
@@ -44,7 +44,7 @@ const mazeGenerator = (grid) => {
   return wall
 }
 
-const getUnvisitedCellNeighbors = (i, j, grid, visited) => {
+const getUnvisitedCellNeighbors = (i: any, j: any, grid: any, visited: any) => {
   const neighbors = []
   if(i >= 2 && !visited[`${i - 2}_${j}`]) {
     neighbors.push([i - 2, j])
@@ -61,19 +61,19 @@ const getUnvisitedCellNeighbors = (i, j, grid, visited) => {
   return neighbors
 }
 
-const getNextNeighborToVisit = (i, j, grid, visited) => {
+const getNextNeighborToVisit = (i: any, j: any, grid: any, visited: any) => {
   const neighbors = getUnvisitedCellNeighbors(i, j, grid, visited)
   return shuffleArray(neighbors)
 }
 
-const getWallBetweenCells = (cell1, cell2) => {
+const getWallBetweenCells = (cell1: any, cell2: any) => {
   if(cell1[0] === cell2[0])
     return [cell1[0], (cell1[1] + cell2[1]) / 2]
   if(cell1[1] === cell2[1])
     return [(cell1[0] + cell2[0]) / 2, cell1[1]]
 }
 
-const shuffleArray = (array) => {
+const shuffleArray = (array: any) => {
   if (array.length == 0) {
     return;
   }
@@ -87,7 +87,7 @@ const shuffleArray = (array) => {
   return array[0]
 }
 
-const initializeWalls = (grid, wall) => {
+const initializeWalls = (grid: any, wall: any) => {
   for(let i = 0; i < grid.length; i = i + 2) {
     for(let j = 0; j < grid[i].length; j = j + 1) {
       wall[`${i}_${j}`] = true

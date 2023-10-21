@@ -1,6 +1,6 @@
-const dijkstra = (grid, wall, startCell, finishCell) => {
+const dijkstra = (grid: any, wall: any, startCell: any, finishCell: any) => {
   const visitedNodesInOrder = []
-  const cellRef = {}
+  const cellRef: any = {}
 
   for(let i = 0; i < grid.length; i++) {
     for(let j = 0; j < grid[0].length; j++) {
@@ -48,7 +48,7 @@ const dijkstra = (grid, wall, startCell, finishCell) => {
   return visitedNodesInOrder
 }
 
-const getUnvisitedNeighbors = (cell, cellRef, grid) => {
+const getUnvisitedNeighbors = (cell: any, cellRef: any, grid: any) => {
   const neighbors = []
   const [row, col] = cell.position
 
@@ -59,7 +59,7 @@ const getUnvisitedNeighbors = (cell, cellRef, grid) => {
   return neighbors.filter(neighbor => !neighbor.visited)
 }
 
-const updateUnvisitedNeighbors = (cell, cellRef, grid) => {
+const updateUnvisitedNeighbors = (cell: any, cellRef: any, grid: any) => {
   const unvisitedNeighbors = getUnvisitedNeighbors(cell, cellRef, grid)
   for(const neighbor of unvisitedNeighbors) {
     neighbor.distance = cell.distance + 1
@@ -71,7 +71,7 @@ const updateUnvisitedNeighbors = (cell, cellRef, grid) => {
 
 // Backtracks from the finishNode to find the shortest path.
 // Only works when called *after* the dijkstra method above.
-const getNodesInShortestPathOrder = (finishCell) => {
+const getNodesInShortestPathOrder = (finishCell: any) => {
   const nodesInShortestPathOrder = []
   let currentCell = finishCell
   while (currentCell !== null) {
@@ -86,7 +86,10 @@ const getNodesInShortestPathOrder = (finishCell) => {
 // Left child index: 2 * index + 1
 // Right child index: 2 * index + 2
 class PriorityQueue {
-  constructor(cellRef) {
+  cellRef: any
+  storage: any
+  size: any
+  constructor(cellRef: any) {
     this.cellRef = cellRef
     this.storage = []
     this.size = 0
@@ -96,49 +99,49 @@ class PriorityQueue {
     return this.size
   }
 
-  getParentIndex(index) {
+  getParentIndex(index: any) {
     return Math.floor((index - 1) / 2)
   }
 
-  getLeftChildIndex(index) {
+  getLeftChildIndex(index: any) {
     return 2 * index + 1
   }
 
-  getRightChildIndex(index) {
+  getRightChildIndex(index: any) {
     return 2 * index + 2
   }
 
-  hasParent(index) {
+  hasParent(index: any) {
     return this.getParentIndex(index) >= 0
   }
 
-  hasLeftChild(index) {
+  hasLeftChild(index: any) {
     return this.getLeftChildIndex(index) < this.size
   }
 
-  hasRightChild(index) {
+  hasRightChild(index: any) {
     return this.getRightChildIndex(index) < this.size
   }
 
-  parent(index) {
+  parent(index: any) {
     return this.storage[this.getParentIndex(index)]
   }
 
-  leftChild(index) {
+  leftChild(index: any) {
     return this.storage[this.getLeftChildIndex(index)]
   }
 
-  rightChild(index) {
+  rightChild(index: any) {
     return this.storage[this.getRightChildIndex(index)]
   }
 
-  swap(index1, index2) {
+  swap(index1: any, index2: any) {
     const temp = this.storage[index1]
     this.storage[index1] = this.storage[index2]
     this.storage[index2] = temp
   }
 
-  insert(key) {
+  insert(key: any) {
     this.storage[this.size] = key
     this.size++
     this.heapifyUp()
