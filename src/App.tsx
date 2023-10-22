@@ -3,6 +3,11 @@ import { createSignal, createEffect, For } from 'solid-js'
 import Node from '@/components/Node'
 import mazeGenerator from '@/algorithms/mazeGenerator'
 import dijkstra, { getNodesInShortestPathOrder } from '@/algorithms/dijkstra'
+import {
+  Dict,
+  Grid,
+  Point
+} from '@/types'
 
 const ROW = 27
 const COL = 85
@@ -33,14 +38,14 @@ const legends = [
 ]
 
 function App() {
-  const [startPos, setStartPos] = createSignal([ROW_MIDDLE, 10])
-  const [nodeToMove, setNodeToMove] = createSignal()
-  const [targetPos, setTargetPos] = createSignal([ROW_MIDDLE, COL - 11])
+  const [startPos, setStartPos] = createSignal<Point>([ROW_MIDDLE, 10])
+  const [nodeToMove, setNodeToMove] = createSignal<string>()
+  const [targetPos, setTargetPos] = createSignal<Point>([ROW_MIDDLE, COL - 11])
   const [isMousedDown, setIsMousedDown] = createSignal(false)
-  const [grid] = createSignal(new Array(ROW).fill(new Array(COL).fill(0)))
-  const [wall, setWall] = createSignal({})
-  const [visitedCell, setVisitedCell] = createSignal({})
-  const [path, setPath] = createSignal({})
+  const [grid] = createSignal<Grid>(new Array(ROW).fill(new Array(COL).fill(0)))
+  const [wall, setWall] = createSignal<Dict>({})
+  const [visitedCell, setVisitedCell] = createSignal<Dict>({})
+  const [path, setPath] = createSignal<Dict>({})
   const [visualizing, setVisualizing] = createSignal(false)
 
   createEffect((prev: any) => {
@@ -80,7 +85,7 @@ function App() {
     const isTrapped = finishCell.position.join('_') !== targetPos().join('_')
     const shortestPath = getNodesInShortestPathOrder(finishCell)
 
-    const visited: any = {}
+    const visited: Dict = {}
     for(const cell of visitedCellsInOrder) {
       visited[cell.position.join('_')] = true
     }
@@ -88,7 +93,7 @@ function App() {
     setVisitedCell(visited)
 
     if(!isTrapped) {
-      const newPath: any = {}
+      const newPath: Dict = {}
       for(const cell of shortestPath) {
         newPath[cell.position.join('_')] = true
       }

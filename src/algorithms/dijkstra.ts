@@ -1,15 +1,31 @@
-const dijkstra = (grid: any, wall: any, startCell: any, finishCell: any) => {
+import {
+  Grid,
+  Dict,
+  Point
+} from '@/types'
+
+type Cell = {
+  key: string,
+  position: Point,
+  distance: number,
+  visited: boolean,
+  prevCell: Cell | null
+}
+
+type CellRef = { [key: string]: Cell }
+
+const dijkstra = (grid: Grid, wall: Dict, startCell: Point, finishCell: Point) => {
   const visitedNodesInOrder = []
-  const cellRef: any = {}
+  const cellRef: CellRef = {}
 
   for(let i = 0; i < grid.length; i++) {
     for(let j = 0; j < grid[0].length; j++) {
       const prevCell = null
       const visited = false
-      const position = [i, j]
+      const position: Point = [i, j]
       const key = position.join('_')
       const distance = i === startCell[0] && j === startCell[1] ? 0 : Infinity
-      const cell = {
+      const cell: Cell = {
         key,
         position,
         distance,
@@ -48,7 +64,7 @@ const dijkstra = (grid: any, wall: any, startCell: any, finishCell: any) => {
   return visitedNodesInOrder
 }
 
-const getUnvisitedNeighbors = (cell: any, cellRef: any, grid: any) => {
+const getUnvisitedNeighbors = (cell: Cell, cellRef: CellRef, grid: Grid) => {
   const neighbors = []
   const [row, col] = cell.position
 
@@ -59,7 +75,7 @@ const getUnvisitedNeighbors = (cell: any, cellRef: any, grid: any) => {
   return neighbors.filter(neighbor => !neighbor.visited)
 }
 
-const updateUnvisitedNeighbors = (cell: any, cellRef: any, grid: any) => {
+const updateUnvisitedNeighbors = (cell: Cell, cellRef: CellRef, grid: Grid) => {
   const unvisitedNeighbors = getUnvisitedNeighbors(cell, cellRef, grid)
   for(const neighbor of unvisitedNeighbors) {
     neighbor.distance = cell.distance + 1
@@ -71,7 +87,7 @@ const updateUnvisitedNeighbors = (cell: any, cellRef: any, grid: any) => {
 
 // Backtracks from the finishNode to find the shortest path.
 // Only works when called *after* the dijkstra method above.
-const getNodesInShortestPathOrder = (finishCell: any) => {
+const getNodesInShortestPathOrder = (finishCell: Cell | null) => {
   const nodesInShortestPathOrder = []
   let currentCell = finishCell
   while (currentCell !== null) {
@@ -86,10 +102,10 @@ const getNodesInShortestPathOrder = (finishCell: any) => {
 // Left child index: 2 * index + 1
 // Right child index: 2 * index + 2
 class PriorityQueue {
-  cellRef: any
-  storage: any
+  cellRef: CellRef
+  storage: string[]
   size: number
-  constructor(cellRef: any) {
+  constructor(cellRef: CellRef) {
     this.cellRef = cellRef
     this.storage = []
     this.size = 0
@@ -141,7 +157,7 @@ class PriorityQueue {
     this.storage[index2] = temp
   }
 
-  insert(key: any) {
+  insert(key: string) {
     this.storage[this.size] = key
     this.size++
     this.heapifyUp()
