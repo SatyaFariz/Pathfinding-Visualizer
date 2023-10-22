@@ -1,8 +1,8 @@
-import styles from './App.module.css';
+import styles from '@/App.module.css';
 import { createSignal, createEffect, For } from 'solid-js'
-import Node from './components/Node'
-import mazeGenerator from './algorithms/mazeGenerator'
-import dijkstra, { getNodesInShortestPathOrder } from './algorithms/dijkstra'
+import Node from '@/components/Node'
+import mazeGenerator from '@/algorithms/mazeGenerator'
+import dijkstra, { getNodesInShortestPathOrder } from '@/algorithms/dijkstra'
 
 const ROW = 27
 const COL = 85

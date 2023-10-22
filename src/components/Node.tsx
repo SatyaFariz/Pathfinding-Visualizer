@@ -1,5 +1,5 @@
 
-import styles from './Node.module.css'
+import styles from '@/components/Node.module.css'
 
 function Node(props: any) {
   const {
