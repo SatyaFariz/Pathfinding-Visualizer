@@ -121,6 +121,34 @@
   background-color: #289bff;
 }
 
+.select {
+  background-image: url('/src/assets/arrow-down.svg');
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  background-color: white;
+  background-position: calc(100%);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #0075da;
+  border: none;
+  color: white;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.select:hover, .select:focus, .select:focus-visible  {
+  cursor: pointer;
+  background-color: #0067c1;
+  outline: none;
+}
+
+.select:disabled {
+  cursor: default;
+  background-color: #289bff;
+}
+
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   .tableContainer {

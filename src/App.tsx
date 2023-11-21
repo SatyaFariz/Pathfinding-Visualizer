@@ -3,6 +3,7 @@ import { createSignal, createEffect, For } from 'solid-js'
 import Node from '@/components/Node'
 import mazeGenerator from '@/algorithms/mazeGenerator'
 import dijkstra, { getNodesInShortestPathOrder } from '@/algorithms/dijkstra'
+import aStar from '@/algorithms/aStar'
 import {
   Dict,
   Grid,
@@ -37,6 +38,8 @@ const legends = [
   }
 ]
 
+const algoTypes = ['dijkstra', 'a_star']
+
 function App() {
   const [startPos, setStartPos] = createSignal<Point>([ROW_MIDDLE, 10])
   const [nodeToMove, setNodeToMove] = createSignal<string>()
@@ -47,26 +50,6 @@ function App() {
   const [visitedCell, setVisitedCell] = createSignal<Dict>({})
   const [path, setPath] = createSignal<Dict>({})
   const [visualizing, setVisualizing] = createSignal(false)
-
-  createEffect((prev: any) => {
-    const currentStartPos = startPos()
-    const currentTargetPos = targetPos()
-    const currentWall = wall()
-    if(Object.keys(visitedCell()).length > 0 && !visualizing()) {
-      if(
-        currentStartPos.join('_') !== prev.startPos.join('_') ||
-        currentTargetPos.join('_') !== prev.targetPos.join('_') ||
-        JSON.stringify(currentWall) !== JSON.stringify(prev.wall)
-      ) {
-        revisualize()
-      }
-    }
-    return {
-      startPos: currentStartPos,
-      targetPos: currentTargetPos,
-      wall: currentWall
-    }
-  })
 
   const generateMaze = () => {
     setPath({})
@@ -134,6 +117,92 @@ function App() {
     }
   }
 
+  const visualizeAStar = () => {
+    setPath({})
+    setVisitedCell({})
+    setVisualizing(true)
+    const { visitedNodesInOrder, path } = aStar(grid(), wall(), startPos(), targetPos())
+    const isTrapped = path.length === 0
+    
+    for(let i = 0; i < visitedNodesInOrder.length; i++) {
+      setTimeout(() => {
+        if(i === visitedNodesInOrder.length - 1) {
+          if(!isTrapped) {
+            for(let i = 0; i < path.length; i++) {
+              setTimeout(() => {
+                setPath(prev => ({ ...prev, [path[i].node.join('_')]: true }))
+                if(i === path.length - 1) {
+                  setVisualizing(false)
+                }
+              }, 10 * i)
+            }
+          } else {
+            setVisualizing(false)
+          }
+        }
+        setVisitedCell(prev => ({ ...prev, [visitedNodesInOrder[i].node.join('_')]: true }))
+      }, 10 * i)
+    }
+  }
+
+  const revisualizeAStar = () => {
+    const { visitedNodesInOrder, path } = aStar(grid(), wall(), startPos(), targetPos())
+    const isTrapped = path.length === 0
+
+    const visited: Dict = {}
+    for(const cell of visitedNodesInOrder) {
+      visited[cell.node.join('_')] = true
+    }
+
+    setVisitedCell(visited)
+
+    if(!isTrapped) {
+      const newPath: Dict = {}
+      for(const cell of path) {
+        newPath[cell.node.join('_')] = true
+      }
+
+      setPath(newPath)
+    } else {
+      setPath({})
+    }
+  }
+
+  const algoTypes = {
+    "0": {
+      label: `Dijkstra's Algorithm`,
+      visualize: visualize,
+      revisualize: revisualize
+    },
+    "1": {
+      label: `A* Algorithm`,
+      visualize: visualizeAStar,
+      revisualize: revisualizeAStar
+    }
+  }
+
+  const [algo, setAlgo] = createSignal('0')
+
+  createEffect((prev: any) => {
+    const currentStartPos = startPos()
+    const currentTargetPos = targetPos()
+    const currentWall = wall()
+    if(Object.keys(visitedCell()).length > 0 && !visualizing()) {
+      if(
+        currentStartPos.join('_') !== prev.startPos.join('_') ||
+        currentTargetPos.join('_') !== prev.targetPos.join('_') ||
+        JSON.stringify(currentWall) !== JSON.stringify(prev.wall)
+      ) {
+        (algoTypes as any)[algo()].revisualize()
+      }
+    }
+    return {
+      startPos: currentStartPos,
+      targetPos: currentTargetPos,
+      wall: currentWall
+    }
+  })
+
   const clearBoard = () => {
     setVisitedCell({})
     setPath({})
@@ -167,7 +236,7 @@ function App() {
 
       <div class={styles.textContainer}>
         <p class={styles.text}>
-          You can create walls by clicking on any nodes. Dijkstra's Algorithm <b>guarantees</b> the shortest path.
+          You can create walls by clicking on any nodes.
         </p>
       </div>
 
@@ -199,11 +268,21 @@ function App() {
 
           <button 
             class={styles.button}
-            onClick={visualize}
+            onClick={() => (algoTypes as any)[algo()].visualize()}
             disabled={visualizing()}
           >
             Visualize
           </button>
+
+          <select 
+            class={styles.select}
+            value={algo()}
+            onChange={(e) => setAlgo(e.currentTarget.value)}
+          >
+            {Object.keys(algoTypes).map(item =>
+              <option value={item}>{((algoTypes as any)[item]).label}</option>
+            )}
+          </select>
         </div>
       </div>
       
