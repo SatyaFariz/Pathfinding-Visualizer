@@ -72,6 +72,7 @@ const aStar = (grid: Grid, wall: Dict, startNode: Point, finishNode: Point): { v
   cellRef[keyOfNode(startNode)].visited = true
 
   while(open.length > 0) {
+    open.sort((a, b) => cellRef[keyOfNode(a)].f - cellRef[keyOfNode(b)].f)
     const current = open[0]
     if(!cellRef[keyOfNode(current)].visited)
       visitedNodesInOrder.push(cellRef[keyOfNode(current)])
